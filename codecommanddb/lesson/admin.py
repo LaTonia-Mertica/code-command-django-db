@@ -16,12 +16,10 @@ class ContentAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ["created", "updated", "text", "uuid", "content", "lesson", "type", "additional_info"]
-class TypeAdmin(admin.ModelAdmin):
-    list_display = ["single", "multi"]
 
 @admin.register(Submission)
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ["created", "updated", "uuid", "is_submitted", "token", "question"]
+    list_display = ["created", "updated", "uuid", "token", "question"]
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):

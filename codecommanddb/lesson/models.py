@@ -24,9 +24,9 @@ class Token(models.Model):
 class Content(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    media = models.BinaryField(editable=True,)
+    media = models.FileField(editable=True,)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE,related_name='contents')
 
 class Question(models.Model):
     class Type(models.TextChoices):
@@ -36,8 +36,8 @@ class Question(models.Model):
     updated = models.DateTimeField(auto_now=True)
     text = models.TextField()
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
-    content = models.ForeignKey(Content, null=True, blank=True, on_delete=models.CASCADE)
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    content = models.ForeignKey(Content, null=True, blank=True, on_delete=models.CASCADE, related_name='contents')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='questions')
     type = models.CharField(max_length=32, choices=Type.choices)
     additional_info = models.TextField(null=True, blank=True)
 
@@ -46,9 +46,8 @@ class Submission(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
-    is_submitted = models.BooleanField(default=False)
-    token = models.ForeignKey(Token, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    token = models.ForeignKey(Token, on_delete=models.CASCADE, related_name='tokens')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='questions')
 
 # this model for correct answers
 class Answer(models.Model):
@@ -57,8 +56,8 @@ class Answer(models.Model):
     text = models.TextField()
     uuid = models.UUIDField(default=uuid.uuid4, unique=True)
     is_correct = models.BooleanField(default=False)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    submissions = models.ManyToManyField(Submission, blank=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    submissions = models.ManyToManyField(Submission, blank=True, related_name='submissions')
 
 
 

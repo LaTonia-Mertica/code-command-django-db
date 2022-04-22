@@ -300,3 +300,24 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/django
 codecommanddb/.DS_Store
 .DS_Store
+django-env/pyvenv.cfg
+django-env/bin/activate
+django-env/bin/activate.csh
+django-env/bin/activate.fish
+.gitignore
+django-env/bin/django-admin
+django-env/bin/pip
+.gitignore
+django-env/bin/pip3
+django-env/bin/pip3.9
+.gitignore
+django-env/bin/python
+.gitignore
+django-env/bin/python3
+.gitignore
+django-env/bin/python3.9
+django-env/bin/sqlformat
+django-env/bin/Activate.ps1
+
+pygmentize
+strawberry
