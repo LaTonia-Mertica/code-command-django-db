@@ -49,6 +49,11 @@ class Submission(models.Model):
     token = models.ForeignKey(Token, on_delete=models.CASCADE, related_name='tokens')
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='questions')
 
+    class Meta:
+        unique_together = ['token', 'question']
+
+
+
 # this model for correct answers
 class Answer(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -58,6 +63,7 @@ class Answer(models.Model):
     is_correct = models.BooleanField(default=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     submissions = models.ManyToManyField(Submission, blank=True, related_name='submissions')
+
 
 
 
